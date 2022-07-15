@@ -100,7 +100,16 @@ header ul li a:hover {
 .goal .close {
   position: absolute;
   top: .625rem;
-  right: .94rem;
+  right: 1rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.goal .edit {
+  position: absolute;
+  top: .625rem;
+  right: 2.25rem;
   cursor: pointer;
   border: none;
   background: none;

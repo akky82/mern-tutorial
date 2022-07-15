@@ -51,7 +51,7 @@ export const getGoals = createAsyncThunk('goals/getAll', async(_, thunkAPI) => {
 export const deleteGoal = createAsyncThunk('goals/delete', async(id, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
-    return await goalService.delete(id, token)
+    return await goalService.deleteGoal(id, token)
   } catch (error) {
     const message = (error.response && 
       error.response.data && 
