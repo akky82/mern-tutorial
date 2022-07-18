@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { reset, login } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
+import ThemeComponent from '../components/ThemeComponent'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -61,6 +62,7 @@ function Login() {
         <h1>
           <FaSignInAlt /> Login
         </h1>
+        <ThemeComponent />
         <p>Enter your email/password</p>
       </section>
 

@@ -1,3 +1,12 @@
+:root {
+  font-size: 16px;
+  --text-primary: #1f1f1f;
+  --text-secondary: #000000;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f4;
+  --transition-speed: 600ms;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +16,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
+  background-color: var(--bg-primary);
 }
 
 a {
@@ -29,6 +39,7 @@ li {
 h1,
 h2,
 h3 {
+  color: var(--text-primary);
   font-weight: 600;
   margin-bottom: .625rem;
 }
@@ -61,12 +72,14 @@ h3 {
 }
 
 .header ul li a {
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
 }
 
+.btn:hover,
 header ul li a:hover {
-  color: #777;
+  opacity: 0.9;
 }
 
 .header ul li a svg {
@@ -91,13 +104,15 @@ header ul li a:hover {
 }
 
 .goal {
-  background-color: #f4f4f4;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
   margin: .625rem 0;
   padding: 1.25rem 0 .625rem;
   position: relative;
 }
 
 .goal .close {
+  color: var(--text-secondary);
   position: absolute;
   top: .625rem;
   right: 1rem;
@@ -107,6 +122,7 @@ header ul li a:hover {
 }
 
 .goal .edit {
+  color: var(--text-secondary);
   position: absolute;
   top: .625rem;
   right: 2.25rem;
@@ -144,10 +160,10 @@ header ul li a:hover {
 
 .btn {
   padding: .325rem 1.25rem;
-  border: 1px solid #000;
+  border: none;
   border-radius: 5px;
-  background: #000;
-  color: #fff;
+  color: var(--bg-primary);
+  background-color: var(--text-primary);
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -162,18 +178,9 @@ header ul li a:hover {
   margin-right: .5rem;
 }
 
-.btn-reverse {
-  background: #fff;
-  color: #000;
-}
-
 .btn-block {
   width: 100%;
   margin-bottom: 1.25rem;
-}
-
-.btn:hover {
-  transform: scale(.98);
 }
 
 .loadingSpinnerContainer {
@@ -219,4 +226,35 @@ header ul li a:hover {
   .heading p {
     font-size: 1.5rem;
   }
+}
+
+.dark {
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+}
+
+.light {
+  --text-primary: #1f1f1f;
+  --text-secondary: #000000;
+  --bg-primary: #ffffff;
+  --bg-secondary: #e4e4e4;
+}
+
+.solar {
+  --text-primary: #576e75;
+  --text-secondary: #35535c;
+  --bg-primary: #fdf6e3;
+  --bg-secondary: #f5e5b8;
+}
+
+.test-paragraph {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: light) {
+}
+@media (prefers-color-scheme: dark) {
 }

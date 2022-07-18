@@ -14,6 +14,7 @@ const createGoal = async (goalData, token) => {
   return response.data
 }
 
+// Get all goals by user
 const getGoals = async (token) => {
   const config = {
     headers: {
@@ -25,6 +26,7 @@ const getGoals = async (token) => {
   return response.data
 }
 
+// Delete a goal (if found/authorized)
 const deleteGoal = async (goalId, token) => {
   const config = {
     headers: {
