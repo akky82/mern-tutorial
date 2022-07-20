@@ -1,19 +1,21 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { FaSignInAlt } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { reset, login } from '../features/auth/authSlice'
+import { reset, updateUser } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
+import { FaUserCog } from 'react-icons/fa'
 
-function Login() {
+function Profile() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    password2: '',
+    location: ''
   })
 
-  const { email, password } = formData
+  const { email, password, password2, location } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -26,11 +28,10 @@ function Login() {
     }
 
     if(isSuccess || user) {
-      navigate('/')
+      navigate('/profile')
     }
 
     dispatch(reset())
-
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const onChange = (event) => {
@@ -40,28 +41,35 @@ function Login() {
     }))
   }
 
+  if(isLoading) {
+    return <Spinner />
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const userData = {
-      email,
-      password,
+    if(password !== password2) {
+      toast.error('Passwords do not match')
+    } else {
+      const userData = {
+        email,
+        password,
+        location,
+      }
+
+      dispatch(updateUser(userData))
+      
+      toast.success("Details updated!")
     }
-
-    dispatch(login(userData))
-  }
-
-  if(isLoading) {
-    return <Spinner />
   }
 
   return (
     <>            
       <section className="heading">
         <h1>
-          <FaSignInAlt /> Login
+          <FaUserCog /> Edit Profile
         </h1>
-        <p>Enter your email/password</p>
+        <p>Change account details below</p>
       </section>
 
       <section className="form">
@@ -73,7 +81,7 @@ function Login() {
               id="email"
               name="email"
               value={email}
-              placeholder="Enter your email" 
+              placeholder="Enter new email" 
               onChange={onChange}
             />
           </div>
@@ -82,9 +90,31 @@ function Login() {
               type="password"
               className="form-control" 
               id="password"
-              name="password" 
+              name="password"
               value={password}
-              placeholder="Enter password" 
+              placeholder="Enter new password" 
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control" 
+              id="password2"
+              name="password2"
+              value={password2}
+              placeholder="Confirm new password" 
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control" 
+              id="location"
+              name="location"
+              value={location} 
+              placeholder="Enter new location" 
               onChange={onChange}
             />
           </div>
@@ -97,4 +127,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Profile

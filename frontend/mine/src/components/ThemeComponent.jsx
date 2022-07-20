@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { FaMoon } from 'react-icons/fa'
 
 const ThemeComponent = () => {
   const themeMap = {
@@ -32,7 +31,7 @@ const ThemeComponent = () => {
 
   return (
     <>
-      <button className="btn" onClick={toggleTheme}><FaMoon />Theme</button>
+      <button className="btn theme-btn" onClick={toggleTheme}>Theme</button>
     </>
   );
 }

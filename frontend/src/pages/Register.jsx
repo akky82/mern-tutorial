@@ -79,7 +79,8 @@ function Register() {
               type="text"
               className="form-control" 
               id="name"
-              name="name" value={name} 
+              name="name"
+              value={name} 
               placeholder="Enter your name" 
               onChange={onChange}
             />
@@ -89,7 +90,8 @@ function Register() {
               type="email"
               className="form-control" 
               id="email"
-              name="email" value={email}
+              name="email"
+              value={email}
               placeholder="Enter your email" 
               onChange={onChange}
             />

@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
-const { isErrored } = require('stream')
 
 // @description     Register new user
 // @route           POST /api/users
@@ -47,13 +46,59 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 })
 
+// @description     Update user details
+// @route           PUT /api/users/:id
+// @access          Private
+const updateUser = asyncHandler(async (req, res) => {
+  const { email, password, location } = req.body
+
+  if(!email || !password) {
+      res.status(400)
+      throw new Error('Please add all fields')
+  }
+
+  // Check if user exists
+  const user = await User.findOne({ email })
+  console.log(user)
+  if(!user) {
+      res.status(400)
+      throw new Error(`User doesn't exist`)
+  }
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(password, salt)
+
+  // Update User
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+      email,
+      password: hashedPassword,
+      location: location || '',
+  }, { returnDocument: 'after' })
+
+  console.log(updatedUser)
+
+  if(updatedUser) {
+    res.status(200).json({
+      _id: user._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      location: updatedUser.location,
+      token: generateToken(user._id)
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid user data')
+  }
+})
+
 // @description     Authenticate user
 // @route           POST /api/users/login
 // @access          Public
 const loginUser = asyncHandler(async (req, res) => {
     const  { email, password } = req.body
     
-    // CHeck for user email
+    // Check for user email
     const user = await User.findOne({ email })
 
     if(user && (await bcrypt.compare(password, user.password))) {
@@ -61,6 +106,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            location: user.location || null,
             token: generateToken(user._id)
         })
     } else {
@@ -83,6 +129,7 @@ const generateToken = (id) => {
 
 module.exports = {
     registerUser,
+    updateUser,
     loginUser,
     getMe,
 }

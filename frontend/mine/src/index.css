@@ -21,7 +21,8 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--bg-primary);}
+  color: var(--bg-primary);
+}
 
 p {
   line-height: 1.7;
