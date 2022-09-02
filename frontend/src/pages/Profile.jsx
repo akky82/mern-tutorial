@@ -8,11 +8,12 @@ import Spinner from '../components/Spinner'
 import { FaUserCog } from 'react-icons/fa'
 
 function Profile() {
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
   const [formData, setFormData] = useState({
-    email: '',
+    email: user.email,
     password: '',
     password2: '',
-    location: ''
+    location: user.location,
   })
 
   const { email, password, password2, location } = formData
@@ -20,7 +21,6 @@ function Profile() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
 
   useEffect(() => {
     if(isError) {

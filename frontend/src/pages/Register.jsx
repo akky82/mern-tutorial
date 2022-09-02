@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { reset, register } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
+import Search from '../components/Search'
 import { FaUser } from 'react-icons/fa'
 
 
@@ -13,10 +14,11 @@ function Register() {
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
+    location: '',
   })
 
-  const { name, email, password, password2 } = formData
+  const { name, email, password, password2, location } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -43,6 +45,10 @@ function Register() {
     }))
   }
 
+  const handleOnSearchChange = (searchData) => {
+    console.log(searchData)
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -53,6 +59,7 @@ function Register() {
         name,
         email,
         password,
+        location,
       }
 
       dispatch(register(userData))
@@ -115,6 +122,20 @@ function Register() {
               placeholder="Confirm password" 
               onChange={onChange}
             />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control" 
+              id="location"
+              name="location"
+              value={location} 
+              placeholder="Enter new location" 
+              onChange={onChange}
+            />
+          </div>
+          <div className="form-group">
+            <Search onSearchChange={handleOnSearchChange}/>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-block">Submit</button>

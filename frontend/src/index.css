@@ -45,7 +45,7 @@ h3,
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .container {
@@ -159,6 +159,7 @@ header ul li a:hover {
 }
 
 .form-group label {
+  color: var(--text-primary);
   text-align: left;
   display: block;
   margin: 0 0 .325rem .175rem;

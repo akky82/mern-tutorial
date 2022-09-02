@@ -2,8 +2,6 @@ import axios from 'axios'
 
 const API_URL = '/api/users/'
 
-const user = JSON.parse(localStorage.getItem('user'))
-
 // Register user
 const register = async (userData) => {
   const response = await axios.post(API_URL, userData)
@@ -17,14 +15,15 @@ const register = async (userData) => {
 
 // Update user details
 const updateUser = async (userData, token) => {
+  const user = JSON.parse(localStorage.getItem('user'))
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }
-
+  // console.log(user)
   const response = await axios.put(API_URL + user._id, userData, config)
-  
+  // console.log(response)
   if(response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
